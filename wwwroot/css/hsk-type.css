@@ -114,12 +114,22 @@ h1 {
 /* ゲームエリア */
 .game-area {
     background-color: #f8f9fa;
-    padding: 30px;
+    /* make the area fill most of the viewport so content can remain visible above the mobile keyboard */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 24px;
     border-radius: 10px;
     margin-bottom: 20px;
     max-width: 800px;
     margin-left: auto;
     margin-right: auto;
+    box-sizing: border-box;
+    /* Use dynamic viewport height where supported to handle mobile address bar/keyboard resizing */
+    height: calc(100dvh - 120px);
+    /* add extra bottom padding for safe area on iOS */
+    padding-bottom: calc(24px + env(safe-area-inset-bottom));
+    overflow: hidden;
 }
 
 /* プログレスバー */
@@ -143,7 +153,7 @@ h1 {
 .score-board {
     display: flex;
     justify-content: space-around;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
     flex-wrap: wrap;
     gap: 10px;
 }
@@ -172,28 +182,41 @@ h1 {
 
 /* 単語表示エリア */
 .word-display {
+    /* allow the central word area to grow and shrink so it stays visible above keyboard */
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     text-align: center;
-    margin-bottom: 30px;
+    margin-bottom: 10px;
+    min-height: 0; /* allow flex children to shrink correctly */
+    overflow: hidden;
 }
 
 .chinese-word {
-    font-size: 4em;
+    /* responsive font size so large characters shrink on small viewports */
+    font-size: clamp(2rem, 8vw, 4em);
     font-weight: bold;
     color: #2c3e50;
     margin-bottom: 10px;
     font-family: "Microsoft YaHei", "SimHei", sans-serif;
+    line-height: 1.1;
+    word-break: break-word;
+    max-height: 40%;
+    overflow: hidden;
 }
 
 .japanese-meaning {
     font-size: 1.2em;
     color: #6c757d;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 
 .pinyin-display {
     font-size: 2em;
     font-family: monospace;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     min-height: 2.5em;
     display: flex;
     justify-content: center;
@@ -223,7 +246,9 @@ h1 {
 /* 入力エリア */
 .input-area {
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
+    /* keep input area sized and pinned to the bottom block */
+    flex: 0 0 auto;
 }
 
 #pinyin-input {
@@ -259,6 +284,7 @@ h1 {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
+    flex: 0 0 auto;
 }
 
 /* 結果エリア */
@@ -342,16 +368,16 @@ h1 {
     }
     
     .chinese-word {
-        font-size: 3em;
+        font-size: clamp(1.8rem, 10vw, 3em);
     }
     
     .pinyin-display {
-        font-size: 1.5em;
+        font-size: 1.3em;
     }
     
     #pinyin-input {
         width: 100%;
-        max-width: 300px;
+        max-width: 320px;
     }
     
     .game-settings {
@@ -362,6 +388,13 @@ h1 {
     .score-board {
         flex-direction: column;
         gap: 10px;
+    }
+    
+    /* On small devices, allow the game area to be a bit taller to keep the chinese word visible when keyboard opens */
+    .game-area {
+        height: calc(100dvh - 80px);
+        padding: 18px;
+        padding-bottom: calc(18px + env(safe-area-inset-bottom));
     }
 }
 

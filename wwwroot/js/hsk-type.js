@@ -3,25 +3,51 @@
 class HSKTypingGame {
     constructor() {
         this.words = [];
-        this.currentWordIndex = 0;
+        this.currentWordIndex =0;
         this.currentWord = null;
         this.typedPinyin = '';
-        this.correctCount = 0;
-        this.skippedWords = []; // wrongWords から skippedWords に変更
+        this.correctCount =0;
+        this.skippedWords = []; // wrongWordsから skippedWords に変更
         this.startTime = null;
         this.timerInterval = null;
         this.gameActive = false;
         
         // 音声設定
-        this.soundEnabled = true;
+        // スマホやPC以外の環境ではデフォルトでタイプ音をOFFにする
+        this.soundEnabled = this.isDesktopEnvironment();
         this.chineseAudioEnabled = true;
         this.pinyinDisplayMode = true;
         
         this.initializeElements();
+        // UI のトグル表示を初期状態に合わせて更新
+        if (this.soundToggleBtn) {
+            this.soundToggleBtn.textContent = this.soundEnabled ? 'ON' : 'OFF';
+            this.soundToggleBtn.className = this.soundEnabled ? 'btn-secondary' : 'btn-danger';
+        }
+        if (this.chineseAudioToggleBtn) {
+            this.chineseAudioToggleBtn.textContent = this.chineseAudioEnabled ? 'ON' : 'OFF';
+            this.chineseAudioToggleBtn.className = this.chineseAudioEnabled ? 'btn-secondary' : 'btn-danger';
+        }
+        if (this.pinyinDisplayBtn) {
+            this.pinyinDisplayBtn.textContent = this.pinyinDisplayMode ? 'ON' : 'OFF';
+            this.pinyinDisplayBtn.className = this.pinyinDisplayMode ? 'btn-secondary' : 'btn-danger';
+        }
+
         this.setupEventListeners();
         this.initializeAudio();
     }
 
+    // ブラウザ環境からデスクトップ判定を行う（簡易）
+    isDesktopEnvironment() {
+        try {
+            const ua = navigator.userAgent || '';
+            const isMobile = /Mobi|Android|iPhone|iPad|iPod|Windows Phone/i.test(ua);
+            const isDesktop = /Windows NT|Macintosh|Linux x86_64|Linux/i.test(ua) && !isMobile;
+            return !!isDesktop;
+        } catch (e) {
+            return false;
+        }
+    }
 //////////////////////////////////////////////////////////
 //コンストラクタ内の初期化関数
     initializeElements() {
@@ -85,6 +111,12 @@ class HSKTypingGame {
     initializeAudio() {
         // 音声ファイルをプリロード
         try {
+            // サウンドが無効ならプリロードもスキップ
+            if (!this.soundEnabled) {
+                this.clickSounds = null;
+                return;
+            }
+
             this.clickSounds = {};
             
             // 各音声ファイルを個別に設定
@@ -96,7 +128,7 @@ class HSKTypingGame {
             
             Object.keys(audioFiles).forEach(key => {
                 const audio = new Audio(audioFiles[key]);
-                audio.volume = 0.3;
+                audio.volume =0.3;
                 audio.preload = 'auto';
                 
                 // 読み込み成功時
@@ -195,7 +227,7 @@ class HSKTypingGame {
         if (!this.currentWord || !this.chineseAudioEnabled) return;
         
         try {
-            const audioPath = `/audio/hsk/${this.currentWord.id}.mp3`;
+            const audioPath = `/audio/hsk/${this.currentWord.id}.wav`;
             const audio = new Audio(audioPath);
             
             // 音量を調整
@@ -295,20 +327,20 @@ class HSKTypingGame {
         this.chineseWordDiv.textContent = this.currentWord.chinese;
         this.japaneseMeaningDiv.textContent = this.currentWord.japanese_meaning;
         
+        // 入力フィールドをクリアして状態をリセット（先に行うことで前の入力が次の単語表示に影響しないようにする）
+        this.pinyinInput.value = '';
+        this.pinyinInput.className = '';
+        
         // ピンイン表示を更新
         this.updatePinyinDisplay();
         
-        // 進行状況を更新
-        this.currentWordSpan.textContent = this.currentWordIndex + 1;
+        //進行状況を更新
+        this.currentWordSpan.textContent = this.currentWordIndex +1;
         this.correctCountSpan.textContent = this.correctCount;
         
         // プログレスバーを更新
-        const progress = (this.currentWordIndex / this.words.length) * 100;
+        const progress = (this.currentWordIndex / this.words.length) *100;
         this.progressBar.style.width = progress + '%';
-        
-        // 入力フィールドをクリア
-        this.pinyinInput.value = '';
-        this.pinyinInput.className = '';
         
         // 新しい単語が表示された時に中国語音声を再生
         this.playChineseAudio();
@@ -321,7 +353,7 @@ class HSKTypingGame {
         if (this.currentWordIndex + 1 < this.words.length) {
             const nextWord = this.words[this.currentWordIndex + 1];
             try {
-                const audioPath = `/audio/hsk/${nextWord.id}.mp3`;
+                const audioPath = `/audio/hsk/${nextWord.id}.wav`;
                 const audio = new Audio();
                 audio.preload = 'metadata';
                 audio.src = audioPath;
