@@ -156,6 +156,31 @@ class HSKTypingGame {
         this.soundEnabled = !this.soundEnabled;
         this.soundToggleBtn.textContent = this.soundEnabled ? 'ON' : 'OFF';
         this.soundToggleBtn.className = this.soundEnabled ? 'btn-secondary' : 'btn-danger';
+
+        if (this.soundEnabled) {
+            // 有効化された場合、まだ clickSounds が無ければ初期化（プリロード）を行う
+            if (!this.clickSounds) {
+                // initializeAudio は soundEnabled が true のときにプリロードする実装になっている想定
+                this.initializeAudio();
+                // 可能なら即時プリロード／解除のために軽くログを残す
+                console.log('サウンドを有効化し、プリロードを実行しました');
+            }
+        } else {
+            // 無効化された場合は再生中の音を止めて参照をクリア
+            if (this.clickSounds) {
+                try {
+                    Object.values(this.clickSounds).forEach(a => {
+                        if (a && typeof a.pause === 'function') {
+                            a.pause();
+                            try { a.currentTime = 0; } catch (e) {}
+                        }
+                    });
+                } catch (e) {
+                    console.warn('サウンド停止時にエラー:', e);
+                }
+                this.clickSounds = null;
+            }
+        }
     }
     
     togglePinyinDisplay() {
