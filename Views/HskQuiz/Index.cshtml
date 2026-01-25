@@ -1,0 +1,126 @@
+﻿@{
+    ViewData["Title"] = "HSK 4択クイズ";
+}
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>HSK 4択クイズ</title>
+    <link rel="stylesheet" href="~/css/hsk-quiz.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+    <div class="container">
+        <h1>4択クイズ</h1>
+
+        <!-- クイズ設定 -->
+        <div class="quiz-settings" id="quiz-settings">
+            <div class="setting-group">
+                <label for="hsk-level">HSK レベル</label>
+                <select id="hsk-level">
+                    <option value="1" selected>1級</option>
+                    <option value="2">2級</option>
+                    <option value="3">3級</option>
+                    <option value="4">4級</option>
+                </select>
+            </div>
+
+            <div class="setting-group">
+                <label for="question-count">問題数</label>
+                <select id="question-count">
+                    <option value="5">5問</option>
+                    <option value="10" selected>10問</option>
+                    <option value="20">20問</option>
+                    <option value="30">30問</option>
+                </select>
+            </div>
+
+            <div class="setting-group">
+                <label for="quiz-mode">出題モード</label>
+                <select id="quiz-mode">
+                    <option value="chinese-to-japanese" selected>中国語 → 日本語</option>
+                    <option value="japanese-to-chinese">日本語 → 中国語</option>
+                    <option value="mixed">ミックス</option>
+                </select>
+            </div>
+
+            <div class="setting-group">
+                <label for="chinese-audio-toggle">中国語音声</label>
+                <button id="chinese-audio-toggle" class="btn-toggle active">ON</button>
+            </div>
+        </div>
+
+        <button id="start-quiz" class="btn-primary">クイズ開始</button>
+
+        <div class="spacebar-instruction" id="spacebar-instruction">
+            <p>スペースキーを押してもクイズが始まります</p>
+        </div>
+
+        <!-- クイズエリア -->
+        <div class="quiz-area" id="quiz-area" style="display: none;">
+            <div class="progress-info">
+                <span class="question-number">
+                    問題 <span id="current-question">1</span> / <span id="total-questions">10</span>
+                </span>
+                <span class="score">
+                    正解: <span id="correct-count">0</span>
+                </span>
+            </div>
+
+            <div class="question-card">
+                <div class="question-text" id="question-text"></div>
+                <div class="question-subtitle" id="question-subtitle"></div>
+            </div>
+
+            <div class="choices-grid" id="choices-grid">
+                <!-- 選択肢がJavaScriptで動的に生成される -->
+            </div>
+
+            <div class="quiz-controls">
+                <button id="skip-question" class="btn-secondary">スキップ</button>
+                <button id="end-quiz" class="btn-danger">終了</button>
+            </div>
+        </div>
+
+        <!-- 結果エリア -->
+        <div class="result-area" id="result-area" style="display: none;">
+            <h2>結果</h2>
+
+            <div class="result-stats">
+                <div class="stat-item">
+                    <span class="stat-label">正解数</span>
+                    <span id="result-correct">0</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">不正解</span>
+                    <span id="result-wrong">0</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">スキップ</span>
+                    <span id="result-skipped">0</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">正解率</span>
+                    <span id="result-accuracy">0%</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">総時間</span>
+                    <span id="result-time">00:00</span>
+                </div>
+            </div>
+
+            <div class="wrong-answers" id="wrong-answers"></div>
+
+            <button id="play-again" class="btn-primary">もう一度プレイ</button>
+        </div>
+
+        <footer class="quiz-footer">
+            <a href="/">Homeに戻る</a>
+        </footer>
+    </div>
+
+    <script src="~/js/hsk-quiz.js"></script>
+</body>
+</html>

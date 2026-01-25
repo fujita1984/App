@@ -1,0 +1,144 @@
+﻿@{
+    ViewData["Title"] = "HSK タイピング";
+}
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>HSK タイピング</title>
+    <link rel="stylesheet" href="~/css/hsk-type.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+    <div class="container">
+        <h1>タイピング</h1>
+
+        <div class="game-settings">
+            <div class="setting-group">
+                <label for="hsk-level">HSK レベル</label>
+                <select id="hsk-level">
+                    <option value="1" selected>1級</option>
+                    <option value="2">2級</option>
+                    <option value="3">3級</option>
+                    <option value="4">4級</option>
+
+                </select>
+            </div>
+
+            <div class="setting-group">
+                <label for="word-count">単語数</label>
+                <select id="word-count">
+                    <option value="5">5個</option>
+                    <option value="10" selected>10個</option>
+                    <option value="20">20個</option>
+                    <option value="30">30個</option>
+                    <option value="all">全て</option>
+                </select>
+            </div>
+
+            <div class="setting-group">
+                <label for="sound-toggle">タイピング音</label>
+                <button id="sound-toggle" class="btn-secondary">ON</button>
+            </div>
+
+            <div class="setting-group">
+                <label for="chinese-audio-toggle">中国語音声</label>
+                <button id="chinese-audio-toggle" class="btn-secondary">ON</button>
+            </div>
+
+            <div class="setting-group">
+                <label for="expert-mode">ピンイン表示</label>
+                <button id="expert-mode" class="btn-secondary">ON</button>
+            </div>
+        </div>
+
+        <button id="start-game" class="btn-primary">ゲーム開始</button>
+
+        <div class="spacebar-instruction">
+            <p>スペースキーを押してもゲームが始まります</p>
+            <p class="typing-note">üはvとして出題しています</p>
+        </div>
+
+        <div class="game-area" id="game-area" style="display: none;">
+            <div class="progress-bar">
+                <div class="progress" id="progress"></div>
+            </div>
+
+            <div class="score-board">
+                <div class="score-item">
+                    <span>進行</span>
+                    <span id="current-word">0</span> / <span id="total-words">0</span>
+                </div>
+                <div class="score-item">
+                    <span>正解</span>
+                    <span id="correct-count">0</span>
+                </div>
+                <div class="score-item">
+                    <span>時間</span>
+                    <span id="timer">00:00</span>
+                </div>
+            </div>
+
+            <div class="word-display">
+                <div class="chinese-word" id="chinese-word"></div>
+                <div class="japanese-meaning" id="japanese-meaning"></div>
+                <div class="pinyin-display" id="pinyin-display">
+                    <span id="completed-pinyin"></span>
+                    <span id="current-char" class="current-char"></span>
+                    <span id="remaining-pinyin"></span>
+                </div>
+            </div>
+
+            <div class="input-area">
+                <input type="text" id="pinyin-input"
+                       placeholder="ピンインを入力してください"
+                       autocomplete="off" disabled>
+            </div>
+
+            <div class="game-controls">
+                <button id="skip-word" class="btn-secondary">スキップ</button>
+                <button id="end-game" class="btn-danger">終了</button>
+            </div>
+        </div>
+
+        <div class="result-area" id="result-area" style="display: none;">
+            <h2>ゲーム結果</h2>
+
+            <div class="result-stats">
+                <div class="stat-item">
+                    <span class="stat-label">正解数</span>
+                    <span id="result-correct">0</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">スキップ数</span>
+                    <span id="result-skipped">0</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">正解率</span>
+                    <span id="result-accuracy">0%</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">総時間</span>
+                    <span id="result-time">00:00</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">総単語数</span>
+                    <span id="result-total">0</span>
+                </div>
+            </div>
+
+            <div class="wrong-words" id="wrong-words"></div>
+
+            <button id="play-again" class="btn-primary">もう一度プレイ</button>
+        </div>
+
+        <footer class="game-footer">
+            <a href="/" style="margin-top:2em; text-align:center;">Home</a>
+        </footer>
+    </div>
+
+    <script src="~/js/hsk-type.js"></script>
+</body>
+</html>

@@ -1,0 +1,424 @@
+/* HSK タイピングゲーム用CSS */
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+h1 {
+    text-align: center;
+    color: #2c3e50;
+    margin-bottom: 30px;
+}
+
+/* ゲーム設定エリア */
+.game-settings {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 30px;
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-radius: 10px;
+    flex-wrap: wrap;
+}
+
+.setting-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+}
+
+.setting-group label {
+    font-weight: bold;
+    color: #495057;
+}
+
+.setting-group select {
+    padding: 8px 12px;
+    border: 2px solid #ced4da;
+    border-radius: 5px;
+    background-color: white;
+    font-size: 14px;
+}
+
+/* スペースキー説明文 */
+.spacebar-instruction {
+    text-align: center;
+    margin: 15px 0;
+    width: 100%;
+}
+
+.spacebar-instruction p {
+    color: #6c757d;
+    font-size: 14px;
+    margin: 0;
+}
+
+.spacebar-instruction .typing-note {
+    font-size: 16px;
+    font-weight: bold;
+    color: #e74c3c;
+    margin-top: 8px;
+}
+
+/* ボタンスタイル */
+.btn-primary, .btn-secondary, .btn-danger {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+/* ゲーム開始ボタン専用スタイル */
+#start-game {
+    display: block;
+    margin: 20px auto;
+    padding: 15px 40px;
+    font-size: 18px;
+    min-width: 200px;
+}
+
+.btn-secondary {
+    background-color: #6c757d;
+    color: white;
+}
+
+.btn-secondary:hover {
+    background-color: #545b62;
+}
+
+.btn-danger {
+    background-color: #dc3545;
+    color: white;
+}
+
+.btn-danger:hover {
+    background-color: #c82333;
+}
+
+/* ゲームエリア */
+.game-area {
+    background-color: #f8f9fa;
+    /* make the area fill most of the viewport so content can remain visible above the mobile keyboard */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 24px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    box-sizing: border-box;
+    /* Use dynamic viewport height where supported to handle mobile address bar/keyboard resizing */
+    height: calc(100dvh - 120px);
+    /* add extra bottom padding for safe area on iOS */
+    padding-bottom: calc(24px + env(safe-area-inset-bottom));
+    overflow: hidden;
+}
+
+/* プログレスバー */
+.progress-bar {
+    width: 100%;
+    height: 10px;
+    background-color: #e9ecef;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    overflow: hidden;
+}
+
+.progress {
+    height: 100%;
+    background-color: #28a745;
+    transition: width 0.3s ease;
+    width: 0%;
+}
+
+/* スコアボード */
+.score-board {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.score-item {
+    text-align: center;
+    padding: 10px;
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    min-width: 100px;
+}
+
+.score-item span:first-child {
+    display: block;
+    font-size: 14px;
+    color: #6c757d;
+    margin-bottom: 5px;
+}
+
+.score-item span:last-child {
+    font-size: 18px;
+    font-weight: bold;
+    color: #2c3e50;
+}
+
+/* 単語表示エリア */
+.word-display {
+    /* allow the central word area to grow and shrink so it stays visible above keyboard */
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin-bottom: 10px;
+    min-height: 0; /* allow flex children to shrink correctly */
+    overflow: hidden;
+}
+
+.chinese-word {
+    /* responsive font size so large characters shrink on small viewports */
+    font-size: clamp(2rem, 8vw, 4em);
+    font-weight: bold;
+    color: #2c3e50;
+    margin-bottom: 10px;
+    font-family: "Microsoft YaHei", "SimHei", sans-serif;
+    line-height: 1.1;
+    word-break: break-word;
+    max-height: 40%;
+    overflow: hidden;
+}
+
+.japanese-meaning {
+    font-size: 1.2em;
+    color: #6c757d;
+    margin-bottom: 10px;
+}
+
+.pinyin-display {
+    font-size: 2em;
+    font-family: monospace;
+    margin-bottom: 10px;
+    min-height: 2.5em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#completed-pinyin {
+    color: #28a745;
+    background-color: #d4edda;
+    padding: 2px 4px;
+}
+
+.current-char {
+    background-color: #fff3cd;
+    color: #856404;
+    padding: 2px 4px;
+    border: 2px solid #ffeaa7;
+}
+
+/* 削除された点滅アニメーション */
+
+#remaining-pinyin {
+    color: #6c757d;
+    padding: 2px 4px;
+}
+
+/* 入力エリア */
+.input-area {
+    text-align: center;
+    margin-bottom: 10px;
+    /* keep input area sized and pinned to the bottom block */
+    flex: 0 0 auto;
+}
+
+#pinyin-input {
+    width: 300px;
+    padding: 15px;
+    font-size: 1.2em;
+    border: 3px solid #ced4da;
+    border-radius: 5px;
+    text-align: center;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+#pinyin-input:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+#pinyin-input.correct {
+    border-color: #28a745;
+    background-color: #d4edda;
+}
+
+#pinyin-input.incorrect {
+    border-color: #dc3545;
+    background-color: #f8d7da;
+}
+
+/* ゲームコントロール */
+.game-controls {
+    text-align: center;
+    gap: 10px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    flex: 0 0 auto;
+}
+
+/* 結果エリア */
+.result-area {
+    background-color: #f8f9fa;
+    padding: 30px;
+    border-radius: 10px;
+    text-align: center;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.result-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.stat-item {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.stat-label {
+    display: block;
+    font-size: 14px;
+    color: #6c757d;
+    margin-bottom: 10px;
+}
+
+.stat-item span:last-child {
+    font-size: 24px;
+    font-weight: bold;
+    color: #2c3e50;
+}
+
+/* 間違えた単語一覧 */
+.wrong-words {
+    margin-bottom: 20px;
+}
+
+.wrong-words h3 {
+    color: #dc3545;
+    margin-bottom: 15px;
+}
+
+.wrong-word-item {
+    background-color: white;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border-left: 4px solid #dc3545;
+    text-align: left;
+}
+
+.wrong-word-chinese {
+    font-size: 1.5em;
+    font-weight: bold;
+    margin-bottom: 5px;
+    font-family: "Microsoft YaHei", "SimHei", sans-serif;
+}
+
+.wrong-word-pinyin {
+    color: #007bff;
+    font-family: monospace;
+    margin-bottom: 5px;
+}
+
+.wrong-word-meaning {
+    color: #6c757d;
+}
+
+/* レスポンシブデザイン */
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+    }
+    
+    .chinese-word {
+        font-size: clamp(1.8rem, 10vw, 3em);
+    }
+    
+    .pinyin-display {
+        font-size: 1.3em;
+    }
+    
+    #pinyin-input {
+        width: 100%;
+        max-width: 320px;
+    }
+    
+    .game-settings {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .score-board {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    /* On small devices, allow the game area to be a bit taller to keep the chinese word visible when keyboard opens */
+    .game-area {
+        height: calc(100dvh - 80px);
+        padding: 18px;
+        padding-bottom: calc(18px + env(safe-area-inset-bottom));
+    }
+}
+
+/* フッター */
+.game-footer {
+    text-align: center;
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid #dee2e6;
+}
+
+.home-link {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #6c757d;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.home-link:hover {
+    background-color: #5a6268;
+    color: white;
+    text-decoration: none;
+}
