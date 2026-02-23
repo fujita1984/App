@@ -1,7 +1,7 @@
-﻿using HskTypingWeb.Models;
+﻿using App.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace HskTypingWeb.Data
+namespace App.Data
 {
     public class AppDbContext : DbContext
     {

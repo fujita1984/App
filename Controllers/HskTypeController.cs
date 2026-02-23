@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace HskTypingWeb.Controllers
+namespace App.Controllers
 {
     public class HskTypeController : Controller
     {

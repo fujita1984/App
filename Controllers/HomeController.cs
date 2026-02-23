@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 
-namespace HskTypingWeb.Controllers
+namespace App.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : Controller 
     {
         public IActionResult Index()
         {

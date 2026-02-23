@@ -1,8 +1,7 @@
-using HskTypingWeb.Data;
+using App.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-
-namespace HskTypingWeb.Controllers
+namespace App.Controllers
 {
     public class HskListController : Controller
     {
@@ -28,7 +27,7 @@ namespace HskTypingWeb.Controllers
 
             if (level == null)
             {
-                return View(new List<HskTypingWeb.Models.HskWord>());
+                return View(new List<App.Models.HskWord>());
             }
 
             var query = _context.HskWords.Where(w => w.Hsk_Level == level);

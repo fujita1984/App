@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "target": "ES2017",
+    "lib": [ "ES2017", "DOM" ],
+    "strict": true,
+    "sourceMap": true,
+    "outDir": "wwwroot/js",
+    "rootDir": "wwwroot/ts"
+  },
+  "include": [
+    "wwwroot/ts/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}

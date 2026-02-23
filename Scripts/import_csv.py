@@ -70,7 +70,7 @@ def load_db_config():
         print(f"Error loading config: {e}")
         raise
 
-def import_csv_to_db(csv_file='hsk_words_20260125_220222.csv'):
+def import_csv_to_db(csv_file):
     """
     Delete all data from hsk_words table and import from CSV file
     
@@ -161,7 +161,7 @@ def main():
     print("HSK Words CSV Import Script")
     print("=" * 50)
     
-    csv_file = 'hsk_words_20260125_220222.csv'
+    csv_file = 'hsk_words_20260201_125927.csv'
     
     print(f"\nThis will:")
     print(f"  1. DELETE all existing data from hsk_words table")

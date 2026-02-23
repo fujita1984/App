@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using HskTypingWeb.Data;
+using App.Data;
 
-namespace HskTypingWeb.Controllers
+namespace App.Controllers
 {
     [ApiController]
     [Route("Api")]

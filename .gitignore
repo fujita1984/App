@@ -374,3 +374,10 @@ appsettings.*.json
 # Secrets
 *secrets.json
 secrets/
+
+node_modules/
+# TypeScript のトランスパイル生成物
+wwwroot/js/hsk-quiz.js
+wwwroot/js/hsk-quiz.js.map
+wwwroot/js/hsk-type.js
+wwwroot/js/hsk-type.js.map

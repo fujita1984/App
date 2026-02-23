@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace HskTypingWeb.Models
+namespace App.Models
 {
     [Table("hsk_words")]
     public class HskWord
